@@ -21,3 +21,21 @@ use Illuminate\Support\Facades\Route;
 Route::get('/healthcheck', function (Request $request) {
     return 'Healthcheck ok';
 });
+
+
+// TASKS
+Route::post('/tasks', function (Request $request) {
+    return 'CREATE TASKS';
+});
+
+Route::get('/tasks', function (Request $request) {
+    return 'GET ALL TASKS';
+});
+
+Route::put('/tasks/{id}', function(Request $request, $id) {
+    return 'UPDATA TASKS: '.$id;
+});
+
+Route::delete('/tasks/{id}', function(Request $request, $id) {
+    return 'UPDATA TASKS: '.$id;
+});
