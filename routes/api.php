@@ -26,15 +26,6 @@ Route::get('/healthcheck', function (Request $request) {
 
 // TASKS
 Route::post('/tasks', [TaskController::class, 'createTask']);
-
-Route::get('/tasks', function (Request $request) {
-    return 'GET ALL TASKS';
-});
-
-Route::put('/tasks/{id}', function(Request $request, $id) {
-    return 'UPDATA TASKS: '.$id;
-});
-
-Route::delete('/tasks/{id}', function(Request $request, $id) {
-    return 'UPDATA TASKS: '.$id;
-});
+Route::get('/tasks', [TaskController::class, 'getAllTasks']);
+Route::put('/tasks/{id}', [TaskController::class, 'updateTaskById']);
+Route::delete('/tasks/{id}', [TaskController::class, 'deleteTaskById']);
