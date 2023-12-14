@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Task;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,7 +18,10 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
         ]);
 
-        \App\Models\User::factory(1000)->create();
+        
+        \App\Models\User::factory(100)->create();
+        Task::factory(100)->create();        
+
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
