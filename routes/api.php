@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TaskController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,9 +25,7 @@ Route::get('/healthcheck', function (Request $request) {
 
 
 // TASKS
-Route::post('/tasks', function (Request $request) {
-    return 'CREATE TASKS';
-});
+Route::post('/tasks', [TaskController::class, 'createTask']);
 
 Route::get('/tasks', function (Request $request) {
     return 'GET ALL TASKS';
