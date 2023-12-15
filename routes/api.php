@@ -26,7 +26,7 @@ Route::get('/healthcheck', function (Request $request) {
 
 
 // TASKS
-Route::post('/tasks', [TaskController::class, 'createTask']);
+Route::post('/tasks', [TaskController::class, 'createTask'])->middleware('auth:sanctum');
 Route::get('/tasks', [TaskController::class, 'getAllTasksCreatedByUser']);
 Route::put('/tasks/{id}', [TaskController::class, 'updateTaskById']);
 Route::delete('/tasks/{id}', [TaskController::class, 'deleteTaskById']);

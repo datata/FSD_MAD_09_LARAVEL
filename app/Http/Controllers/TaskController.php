@@ -20,7 +20,8 @@ class TaskController extends Controller
             // recoger y tratar esa informacion si es necesario
             $title = $request->input('title');
             $description = $request->input('description');
-            $userId = $request->input('user_id');
+            // $userId = $request->input('user_id');
+            $userId = auth()->user()->id;
 
             // Guardamos en BD
             // $newTask = DB::table('tasks')->insert(
