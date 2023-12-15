@@ -33,3 +33,5 @@ Route::delete('/tasks/{id}', [TaskController::class, 'deleteTaskById']);
 
 // AUTH
 Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+
