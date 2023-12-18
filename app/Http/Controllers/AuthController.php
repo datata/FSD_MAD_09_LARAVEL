@@ -85,7 +85,7 @@ class AuthController extends Controller
     public function login(Request $request) {
         try {
             Log::info('User login');
-            
+
             // validar
             $validator = Validator::make($request->all(), [
                 'email' => 'required|email',
@@ -183,5 +183,33 @@ class AuthController extends Controller
             ],
             Response::HTTP_OK
         );
+    }
+
+    public function profile(Request $request) {
+        try {
+            $user = auth()->user();
+            // $user = User::query()->find(auth()->user()->id);
+
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => 'User profile successfully',
+                    'data' => $user
+                ],
+                Response::HTTP_OK
+            );
+
+        } catch (\Throwable $th) {
+            Log::error('User profile cant be retrieved: '.$th->getMessage());
+
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'User profile cant be retrieved',
+                    'error' => $th->getMessage()
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
     }
 }
