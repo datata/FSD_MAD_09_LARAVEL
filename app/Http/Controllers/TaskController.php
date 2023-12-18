@@ -65,7 +65,7 @@ class TaskController extends Controller
             // TODO recuperar id user por token
 
             $tasks = Task::query()
-                ->where('user_id', '=', $request->query('userId'))
+                ->where('user_id', '=', auth()->user()->id)
                 ->get(['id', 'title']);
 
             return response()->json(
@@ -110,7 +110,7 @@ class TaskController extends Controller
             // Elimnar tarea
             // $deleteTask = Task::destroy($id);
 
-            $deleteTask = Task::find($id);
+            $deleteTask = Task::query()->where('user_id', auth()->user()->id)->find($id);
 
             if(!$deleteTask) {
                 throw new Error('Task not found');
