@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,7 +30,8 @@ Route::get('/healthcheck', function (Request $request) {
 Route::group(
     [
         'middleware' => [
-            'auth:sanctum'
+            'auth:sanctum',
+            // 'isAdmin'
         ]
     ],
     function () {
@@ -46,3 +48,6 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 Route::get('/profile', [AuthController::class, 'profile'])->middleware('auth:sanctum');
+
+// USERS
+Route::get('users', [UserController::class, 'getAllUsers'])->middleware(['auth:sanctum', 'isAdmin']);
