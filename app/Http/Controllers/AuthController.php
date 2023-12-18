@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Error;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Sanctum\PersonalAccessToken;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,6 +16,7 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         try {
+            Log::info('User register');
             // validar
             $validator = $this->validateRegisterDataUser($request);
 
@@ -55,6 +58,8 @@ class AuthController extends Controller
                 Response::HTTP_OK
             );
         } catch (\Throwable $th) {
+            Log::error('Error registering user: '.$th->getMessage());
+
             return response()->json(
                 [
                     'success' => false,
@@ -79,6 +84,8 @@ class AuthController extends Controller
 
     public function login(Request $request) {
         try {
+            Log::info('User login');
+            
             // validar
             $validator = Validator::make($request->all(), [
                 'email' => 'required|email',
@@ -139,6 +146,8 @@ class AuthController extends Controller
                 Response::HTTP_OK
             );
         } catch (\Throwable $th) {
+            Log::error('User cant be logged: '.$th->getMessage());
+
             return response()->json(
                 [
                     'success' => false,
