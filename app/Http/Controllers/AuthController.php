@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Sanctum\PersonalAccessToken;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
@@ -147,5 +148,31 @@ class AuthController extends Controller
                 Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }
+    }
+
+    public function logout(Request $request) {
+        // recuperamos token
+        $accessToken = $request->bearerToken();
+
+        // Busxamos el token en la tabla correspondiente
+        $token = PersonalAccessToken::findToken($accessToken);
+        $token->delete();
+
+        // alternativas
+        // $request->user()->currentAccessToken()->delete();
+
+        // $user = Auth::guard('sanctum')->user();
+        // if ($user) {
+        //     $user->tokens()->delete();
+        // }
+
+        // devolvemos una respuesta
+        return response()->json(
+            [
+                'success' => true,
+                'message' => 'User Logged out',
+            ],
+            Response::HTTP_OK
+        );
     }
 }
