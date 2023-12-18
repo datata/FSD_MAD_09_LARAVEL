@@ -11,12 +11,15 @@ class UserController extends Controller
 {
     public function getAllUsers(Request $request) {
         try {
-            $users = User::query()->get();
+            $count = $request->query('count', 5);
+            $activeUser = $request->query('is_active', true);
+
+            $users = User::where('is_active', $activeUser)->paginate($count);
 
             return response()->json(
                 [
                     'success' => true,
-                    'message' => 'Cant retrieve users',
+                    'message' => 'retrieve users',
                     'data' => $users
                 ],
                 Response::HTTP_OK
