@@ -18,6 +18,8 @@ class TaskController extends Controller
     public function createTask(Request $request)
     {
         try {
+            //COMIENZA LA TRANSACCION
+            DB::beginTransaction();
             // validar la informacion
 
             // recoger y tratar esa informacion si es necesario
@@ -41,6 +43,8 @@ class TaskController extends Controller
             $newTask->user_id = $userId;
             $newTask->save();
 
+            // confirma la transaccion
+            DB::commit();
             // devolver una respuesta
             return response()->json(
                 [
@@ -51,6 +55,8 @@ class TaskController extends Controller
                 Response::HTTP_CREATED
             );
         } catch (\Throwable $th) {
+            DB::rollBack();
+
             return response()->json(
                 [
                     'success' => false,

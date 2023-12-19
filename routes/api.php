@@ -22,7 +22,10 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/healthcheck', function (Request $request) {
-    return 'Healthcheck ok';
+    return response()->json(
+        ['healthcheck' => 'OK'],
+        200
+    );
 });
 
 
