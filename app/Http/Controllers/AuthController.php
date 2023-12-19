@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Welcome;
 use App\Models\User;
 use Error;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Sanctum\PersonalAccessToken;
 use Symfony\Component\HttpFoundation\Response;
@@ -47,6 +49,13 @@ class AuthController extends Controller
                     'name' => $name
                 ]
             );
+
+            // //generar ruta de activacion de cuenta
+            // $urlActivate = 'https://www.google.com/';
+
+            // // enviar mail de bienvenida
+            // $welcome = new Welcome($urlActivate, $name);
+            // Mail::to($email)->send($welcome);
 
             // devolver respuesta
             return response()->json(

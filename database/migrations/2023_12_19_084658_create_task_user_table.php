@@ -18,6 +18,8 @@ return new class extends Migration
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 
+            $table->unique(['task_id', 'user_id']);
+
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('task_id')->references('id')->on('tasks');
         });

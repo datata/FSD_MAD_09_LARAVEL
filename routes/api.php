@@ -42,6 +42,11 @@ Route::group(
         Route::get('/tasks', [TaskController::class, 'getAllTasksCreatedByUser']);
         Route::put('/tasks/{id}', [TaskController::class, 'updateTaskById']);
         Route::delete('/tasks/{id}', [TaskController::class, 'deleteTaskById']);
+        Route::get('/get-task/{id}', [TaskController::class, 'getTaskByIdByAdmin']);
+        Route::put('/attach-to-task/{id}', [TaskController::class, 'addTaskToUser']);
+        Route::put('/remove-user-from-task/{id}', [TaskController::class, 'removeTaskUserAssociate']);
+        Route::get('/assigned-user-tasks', [TaskController::class, 'tasksAssociateWithUser']);
+        Route::get('/get-users-associated-tasks/{id}', [TaskController::class, 'getUsersAssocitedToTaskId']);
     }
 );
 
